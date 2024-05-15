@@ -25,9 +25,9 @@ function countdown(targetDate, elementId) {
 }
 
 // Definindo as datas de aniversário
-// var meuAniversario = new Date("05/24/2024:00:00");
-var aniversarioColega1 = new Date("May , 2024 00:00:00");
-var aniversarioColega2 = new Date("June 20, 2024 00:00:00");
+var meuAniversario = new Date("05/24/2024 11:14");
+var aniversarioColega1 = new Date("11/09/2024 11:14");
+var aniversarioColega2 = new Date("05/05/2025");
 
 // Atualizando os contadores de tempo restante
 setInterval(function() {
