@@ -1,37 +1,63 @@
-// Função para abrir a aba correspondente
-function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+const botoes = document.querySelectorAll(".botao");
+const textos = document.querySelectorAll(".aba-conteudo");
+
+for (let i = 0; i < botoes.length; i++) {
+    botoes[i].onclick = function () {
+
+        for (let j = 0; j < botoes.length; j++) {
+            botoes[j].classList.remove("ativo");
+            textos[j].classList.remove("ativo");
+        }
+
+        botoes[i].classList.add("ativo");
+        textos[i].classList.add("ativo");
     }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
 }
 
-// Função para calcular o tempo restante até uma data específica
-function countdown(targetDate, elementId) {
-    var currentDate = new Date();
-    var difference = targetDate.getTime() - currentDate.getTime();
-    var days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((difference % (1000 * 60)) / 1000);
-    document.getElementById(elementId).innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+const contadores = document.querySelectorAll(".contador");
+const tempoObjetivo1 = new Date("2024-05-05T23:59:00");
+const tempoObjetivo2 = new Date("2024-11-09T00:00:00");
+const tempoObjetivo3 = new Date("2024-05-24T00:00:00");
+const tempoObjetivo4 = new Date("2025-03-22T00:00:00");
+
+
+const tempos = [tempoObjetivo1,tempoObjetivo2,tempoObjetivo3,tempoObjetivo4];
+
+
+
+function atualizaCronometro(){ 
+    for (let i=0; i<contadores.length;i++){
+        document.getElementById("dias"+i).textContent = calculaTempo(tempos[i])[0];
+        document.getElementById("horas"+i).textContent = calculaTempo(tempos[i])[1];
+        document.getElementById("min"+i).textContent = calculaTempo(tempos[i])[2];
+        document.getElementById("seg"+i).textContent = calculaTempo(tempos[i])[3];
+    }
+
+}
+function comecaCronometro(){
+    atualizaCronometro();
+    setInterval(atualizaCronometro,1000);
 }
 
-// Definindo as datas de aniversário
-var meuAniversario = new Date("05/24/2024 11:14");
-var aniversarioColega1 = new Date("11/09/2024 11:14");
-var aniversarioColega2 = new Date("05/05/2025");
 
-// Atualizando os contadores de tempo restante
-setInterval(function() {
-    countdown(meuAniversario, "meuAniversarioCountdown");
-    countdown(aniversarioColega1, "colega1Countdown");
-    countdown(aniversarioColega2, "colega2Countdown");
-}, 1000);
+comecaCronometro();
+
+
+
+function calculaTempo(tempoObjetivo) {
+    let tempoAtual = new Date();
+    let tempoFinal = tempoObjetivo - tempoAtual;
+    let segundos = Math.floor(tempoFinal / 1000);
+    let minutos = Math.floor(segundos / 60);
+    let horas = Math.floor(minutos / 60);
+    let dias = Math.floor(horas / 24);
+
+    segundos %= 60;
+    minutos %= 60;
+    horas %= 24;
+    if (tempoFinal > 0){
+        return [dias,horas,minutos,segundos]
+    } else {
+        return [0,0,0,0];
+    }
+}
