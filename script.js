@@ -25,7 +25,7 @@ function countdown(targetDate, elementId) {
 }
 
 // Definindo as datas de aniversário
-var meuAniversario = new Date("April 30, 2024 00:00:00");
+// var meuAniversario = new Date("05/24/2024:00:00");
 var aniversarioColega1 = new Date("May , 2024 00:00:00");
 var aniversarioColega2 = new Date("June 20, 2024 00:00:00");
 
